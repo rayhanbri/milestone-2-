@@ -1,0 +1,434 @@
+## Simple Explanation
+
+This `initDB` function is used to create a `users` table in PostgreSQL if it does not already exist.
+
+You are using:
+
+* **Node.js**
+* **TypeScript/JavaScript**
+* **PostgreSQL**
+* `pool.query()` from the `pg` package
+
+When the server starts, this function runs and creates the database table automatically.
+
+---
+
+## Code Breakdown
+
+```js
+const initDB = async () => {
+```
+
+### What is happening?
+
+* `async` means this function works asynchronously.
+* Database operations take time, so we use `async/await`.
+
+---
+
+```js
+try {
+```
+
+### Purpose
+
+Used for error handling.
+
+If any database error happens, execution jumps to `catch`.
+
+---
+
+```js
+await pool.query(`
+```
+
+### Purpose
+
+Runs an SQL query using the PostgreSQL connection pool.
+
+`await` waits until the query finishes.
+
+---
+
+# SQL Table Explanation
+
+```sql
+CREATE TABLE IF NOT EXISTS users(
+```
+
+### Meaning
+
+Create a table named `users`.
+
+If the table already exists, do nothing.
+
+---
+
+```sql
+id SERIAL PRIMARY KEY,
+```
+
+## Explanation
+
+### `SERIAL`
+
+* Automatically generates incrementing numbers.
+* Example:
+
+  * 1
+  * 2
+  * 3
+
+### `PRIMARY KEY`
+
+* Unique identifier for each row.
+* Cannot be duplicated.
+* Cannot be null.
+
+---
+
+```sql
+name VARCHAR(20),
+```
+
+### Meaning
+
+Stores user name.
+
+* `VARCHAR(20)` → maximum 20 characters.
+
+Example:
+
+```txt
+Rayhan
+```
+
+---
+
+```sql
+email VARCHAR(20) UNIQUE NOT NULL,
+```
+
+## Explanation
+
+### `UNIQUE`
+
+No duplicate emails allowed.
+
+Example:
+
+❌ Not allowed
+
+```txt
+rayhan@gmail.com
+rayhan@gmail.com
+```
+
+---
+
+### `NOT NULL`
+
+Email is required.
+
+Cannot insert empty value.
+
+---
+
+```sql
+password VARCHAR(20) NOT NULL,
+```
+
+### Meaning
+
+Stores password.
+
+But in real projects:
+
+⚠️ Never store plain password.
+
+Always hash passwords using:
+
+* `bcrypt`
+* `argon2`
+
+---
+
+```sql
+is_active BOOLEAN DEFAULT true,
+```
+
+## Explanation
+
+Stores active/inactive status.
+
+### BOOLEAN values
+
+* `true`
+* `false`
+
+### DEFAULT true
+
+If no value is given:
+
+```sql
+is_active = true
+```
+
+automatically.
+
+---
+
+```sql
+age INT,
+```
+
+### Meaning
+
+Stores integer age.
+
+Example:
+
+```txt
+20
+25
+30
+```
+
+---
+
+```sql
+created_at TIMESTAMP DEFAULT NOW(),
+```
+
+## Explanation
+
+Stores creation time automatically.
+
+Example:
+
+```txt
+2026-05-16 10:30:20
+```
+
+---
+
+```sql
+updated_at TIMESTAMP DEFAULT NOW()
+```
+
+### Purpose
+
+Stores last update time.
+
+Usually updated when data changes.
+
+---
+
+```sql
+)
+```
+
+Ends table definition.
+
+---
+
+```js
+console.log("Database connected successfully!");
+```
+
+Prints success message.
+
+---
+
+```js
+} catch (error) {
+  console.log(error);
+}
+```
+
+If any error occurs, it prints the error.
+
+---
+
+# Real World Example
+
+Suppose a user registers:
+
+```json
+{
+  "name": "Rayhan",
+  "email": "rayhan@gmail.com",
+  "password": "123456",
+  "age": 22
+}
+```
+
+Database row becomes:
+
+| id | name   | email                                       | is_active | age |
+| -- | ------ | ------------------------------------------- | --------- | --- |
+| 1  | Rayhan | [rayhan@gmail.com](mailto:rayhan@gmail.com) | true      | 22  |
+
+---
+
+# Important Improvements (Interview + Production)
+
+## 1. Increase VARCHAR Length
+
+```sql
+email VARCHAR(100)
+password VARCHAR(255)
+```
+
+Because hashed passwords are long.
+
+---
+
+## 2. Add `NOT NULL` to name
+
+```sql
+name VARCHAR(50) NOT NULL
+```
+
+---
+
+## 3. Use `TEXT` instead of VARCHAR sometimes
+
+```sql
+password TEXT NOT NULL
+```
+
+Common practice.
+
+---
+
+# Better Version
+
+```js
+const initDB = async () => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users(
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        is_active BOOLEAN DEFAULT true,
+        age INT,
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+      )
+    `);
+
+    console.log("Database connected successfully!");
+  } catch (error) {
+    console.log(error);
+  }
+};
+```
+
+---
+
+# Interview Questions
+
+## Basic Questions
+
+### 1. Why use `async/await`?
+
+Because database operations are asynchronous.
+
+---
+
+### 2. What is `SERIAL` in PostgreSQL?
+
+Auto increment integer value.
+
+---
+
+### 3. What is a Primary Key?
+
+A unique identifier for each row.
+
+---
+
+### 4. Difference between `UNIQUE` and `PRIMARY KEY`?
+
+| PRIMARY KEY      | UNIQUE           |
+| ---------------- | ---------------- |
+| Only one allowed | Multiple allowed |
+| Cannot be NULL   | Can contain NULL |
+
+---
+
+### 5. What is `DEFAULT NOW()`?
+
+Automatically inserts current timestamp.
+
+---
+
+# Intermediate Questions
+
+## Why should passwords not use VARCHAR(20)?
+
+Because hashed passwords are much longer.
+
+Use:
+
+```sql
+TEXT
+```
+
+or
+
+```sql
+VARCHAR(255)
+```
+
+---
+
+## Why use connection pooling?
+
+Connection pool improves performance by reusing database connections.
+
+---
+
+# Common Mistakes
+
+## ❌ Storing plain passwords
+
+Bad:
+
+```sql
+password VARCHAR(20)
+```
+
+without hashing.
+
+---
+
+## ❌ Small email length
+
+```sql
+VARCHAR(20)
+```
+
+Many real emails exceed 20 characters.
+
+---
+
+## ❌ Forgetting NOT NULL
+
+Can create incomplete data.
+
+---
+
+# Important Concept Summary
+
+* `SERIAL` → auto increment
+* `PRIMARY KEY` → unique row identifier
+* `UNIQUE` → no duplicate values
+* `NOT NULL` → required field
+* `BOOLEAN` → true/false
+* `TIMESTAMP` → date & time
+* `DEFAULT NOW()` → automatic current time
+* `async/await` → asynchronous database handling

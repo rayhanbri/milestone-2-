@@ -1,0 +1,36 @@
+1.what is express.js
+modle flow ------------------
+1.server.ts (hit server thorugh postman)
+
+How to start neon db 
+1.go to neon 
+2.create new project 
+2.go to connect 
+3.npm i pg (install dev dependencies)
+4.const pool 
+
+---------
+1.init DB
+2.app.post api/users
+3.get all users 
+4.get single users 
+5.put and update users. 
+6.delete users .
+7.dot config
+
+
+
+how to start a express server;
+
+1.npm init --y
+2.npm i -D typescript
+3.npx tsc --init  (src,root, esnext , types[node],jsx comment) 
+
+4.package.json (type : module ) "type": "module",
+5.now install express npm i express
+6.go to server ts // express error solve through npm 
+7.npm i -D tsx
+8."scripts": {
+    "dev": "tsx watch ./src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
