@@ -1,0 +1,295 @@
+# What is DRY?
+
+DRY means:
+
+```txt
+Don't Repeat Yourself
+```
+
+It is a software development principle that says:
+
+> “Avoid writing the same logic multiple times.”
+
+Instead of duplicating code, create reusable functions, services, utilities, or components.
+
+---
+
+# Why DRY is Important
+
+* Reduces duplicate code
+* Easier maintenance
+* Easier debugging
+* Cleaner architecture
+* Improves scalability
+
+---
+
+# Bad Example (Not DRY)
+
+```ts
+// user.controller.ts
+
+const createUser = async (req, res) => {
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+  // save user
+};
+
+// admin.controller.ts
+
+const createAdmin = async (req, res) => {
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+  // save admin
+};
+```
+
+Here the password hashing logic is duplicated.
+
+---
+
+# Good Example (DRY)
+
+## Utility Function
+
+```ts
+// utils/hashPassword.ts
+
+import bcrypt from "bcrypt";
+
+export const hashPassword = async (password: string) => {
+  return await bcrypt.hash(password, 10);
+};
+```
+
+---
+
+## Use It Anywhere
+
+```ts
+const hashedPassword = await hashPassword(req.body.password);
+
+console.log(hashedPassword);
+```
+
+Now logic is reusable.
+
+---
+
+# Real-World Example
+
+Imagine a restaurant.
+
+❌ Bad:
+
+Every chef writes the same recipe separately.
+
+✅ Good:
+
+One master recipe is reused by everyone.
+
+That is DRY.
+
+---
+
+# Common Ways to Follow DRY
+
+* Utility functions
+* Reusable components
+* Middleware
+* Services
+* Base classes
+* Custom hooks
+* Shared constants
+
+---
+
+# What is Fat Model?
+
+Fat Model is a concept mostly used in MVC architecture.
+
+It means:
+
+> Keep business logic inside the Model/Service instead of Controller.
+
+Controllers should stay small.
+
+Models/Services handle:
+
+* Database logic
+* Validation
+* Business rules
+* Data processing
+
+---
+
+# Thin Controller vs Fat Model
+
+## ❌ Bad (Fat Controller)
+
+```ts
+const createUser = async (req, res) => {
+  const data = req.body;
+
+  if (!data.email) {
+    throw new Error("Email required");
+  }
+
+  const existingUser = await User.findOne({ email: data.email });
+
+  if (existingUser) {
+    throw new Error("User already exists");
+  }
+
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+
+  const result = await User.create({
+    ...data,
+    password: hashedPassword,
+  });
+
+  res.json(result);
+};
+```
+
+Controller is doing everything.
+
+---
+
+# ✅ Good (Fat Model / Service)
+
+## Service
+
+```ts
+// user.service.ts
+
+const createUserIntoDB = async (payload) => {
+  const existingUser = await User.findOne({
+    email: payload.email,
+  });
+
+  if (existingUser) {
+    throw new Error("User already exists");
+  }
+
+  const hashedPassword = await bcrypt.hash(
+    payload.password,
+    10
+  );
+
+  return await User.create({
+    ...payload,
+    password: hashedPassword,
+  });
+};
+
+export const UserService = {
+  createUserIntoDB,
+};
+```
+
+---
+
+## Controller
+
+```ts
+// user.controller.ts
+
+const createUser = async (req, res) => {
+  const result = await UserService.createUserIntoDB(
+    req.body
+  );
+
+  res.json({
+    success: true,
+    data: result,
+  });
+};
+```
+
+---
+
+# Why Fat Model is Good
+
+* Cleaner controller
+* Better code organization
+* Easier testing
+* Reusable business logic
+* Easier scaling
+
+---
+
+# Modern Backend Practice
+
+Nowadays developers usually use:
+
+```txt
+Thin Controller + Fat Service
+```
+
+instead of directly using fat database models.
+
+Especially in Express.js + TypeScript applications.
+
+---
+
+# DRY vs Fat Model
+
+| Concept   | Purpose                                  |
+| --------- | ---------------------------------------- |
+| DRY       | Avoid duplicate code                     |
+| Fat Model | Move business logic away from controller |
+
+---
+
+# Interview Questions
+
+## What is DRY?
+
+A principle that avoids repeating the same logic/code multiple times.
+
+---
+
+## What is Fat Model?
+
+Keeping business logic inside model/service layer instead of controller.
+
+---
+
+## Why use DRY?
+
+To improve maintainability and reduce duplication.
+
+---
+
+## Why keep controllers thin?
+
+Because controllers should only handle request and response.
+
+---
+
+# Common Mistakes
+
+❌ Repeating validation logic
+❌ Huge controllers
+❌ Copy-paste code
+❌ Database queries everywhere
+❌ Business logic inside routes
+
+---
+
+# Best Practice Structure
+
+```txt
+Route
+ ↓
+Controller
+ ↓
+Service
+ ↓
+Model
+ ↓
+Database
+```
+
+This structure is common in scalable backend applications.

@@ -1,0 +1,164 @@
+# Authentication
+
+Authentication means:
+
+> Verifying who the user is.
+
+It checks:
+
+```txt id="lw9f8x"
+"Are you really this user?"
+```
+
+### Example
+
+* Email + Password login
+* Google login
+* OTP login
+
+If credentials are correct → user is authenticated.
+
+---
+
+# Authorization
+
+Authorization means:
+
+> Checking what the user is allowed to do.
+
+It checks:
+
+```txt id="8l0ayx"
+"What can this user access?"
+```
+
+### Example
+
+* Admin can delete users
+* Normal user cannot access admin dashboard
+
+---
+
+# Simple Difference
+
+| Authentication | Authorization    |
+| -------------- | ---------------- |
+| Who are you?   | What can you do? |
+| Login check    | Permission check |
+
+---
+
+# Real Example
+
+```txt id="3bgtv9"
+Login to Facebook → Authentication
+Delete a post as admin → Authorization
+```
+
+Commonly implemented in backend apps using JSON Web Token or session-based authentication.
+
+-----------------------------------
+# Session-Based Authentication
+
+After login:
+
+* Server creates a session
+* Session data stored on server
+* Session ID sent to browser using cookies
+
+### Flow
+
+```txt id="f4suhk"
+Login →
+Server creates session →
+Browser stores session ID cookie →
+Cookie sent on every request
+```
+
+---
+
+# JWT Authentication
+
+After login:
+
+* Server creates a token (JWT)
+* Token sent to client
+* Client stores token
+* Token sent with every request
+
+### Flow
+
+```txt id="n8w8pq"
+Login →
+Server creates JWT →
+Client stores token →
+Token sent in headers
+```
+
+---
+
+# Main Difference
+
+| Session Auth             | JWT Auth               |
+| ------------------------ | ---------------------- |
+| Session stored on server | Token stored on client |
+| Stateful                 | Stateless              |
+| Uses cookies             | Uses token/header      |
+| More server memory       | Less server memory     |
+
+---
+
+# Example Header in JWT
+
+```txt id="4gjd1m"
+Authorization: Bearer token
+```
+
+---
+
+# When JWT is Popular
+
+* REST API
+* Mobile apps
+* MERN stack
+* Microservices
+
+Often implemented using JSON Web Token.
+
+---
+
+# To-the-Point Interview Questions
+
+## What is session-based authentication?
+
+Authentication where session data is stored on the server.
+
+---
+
+## What is JWT authentication?
+
+Authentication using signed tokens.
+
+---
+
+## What does JWT stand for?
+
+JSON Web Token.
+
+---
+
+## Where is JWT usually stored?
+
+Local storage, cookies, or session storage.
+
+---
+
+## What is the main difference between session and JWT?
+
+Session stores data on server, JWT stores token on client.
+
+---
+
+## What does stateless mean in JWT?
+
+Server does not store user session data.

@@ -1,0 +1,376 @@
+# What is a Software Design Pattern?
+
+A **software design pattern** is a reusable solution to a common software design problem.
+
+It is not full code.
+It is a **structure or blueprint** for organizing code in a clean, scalable, and maintainable way.
+
+### Why We Use Design Patterns
+
+* Make code organized
+* Improve scalability
+* Reduce code duplication
+* Easier debugging
+* Easier teamwork
+* Better maintainability
+
+---
+
+# MVC Pattern
+
+MVC stands for:
+
+* **M → Model**
+* **V → View**
+* **C → Controller**
+
+It separates application logic into different parts.
+
+---
+
+## MVC Architecture Flow
+
+```txt
+User Request
+     ↓
+Controller
+     ↓
+Model ↔ Database
+     ↓
+Controller
+     ↓
+View / Response
+```
+
+---
+
+# 1. Model
+
+The **Model** handles:
+
+* Database logic
+* Data structure
+* Business logic
+* Query operations
+
+### Example
+
+```ts
+// user.model.ts
+
+const getUsersFromDB = async () => {
+  return await User.find();
+};
+
+export const UserModel = {
+  getUsersFromDB,
+};
+```
+
+---
+
+# 2. Controller
+
+The **Controller** handles:
+
+* Request & response
+* Calls model functions
+* Sends data to client
+
+### Example
+
+```ts
+// user.controller.ts
+
+const getUsers = async (req, res) => {
+  const users = await UserModel.getUsersFromDB();
+
+  res.json({
+    success: true,
+    data: users,
+  });
+};
+
+export const UserController = {
+  getUsers,
+};
+```
+
+---
+
+# 3. View
+
+The **View** shows data to users.
+
+In backend APIs, JSON response is often considered the view.
+
+In frontend frameworks like React, UI components are the view.
+
+---
+
+# MVC Folder Structure
+
+```txt
+src/
+ ├── modules/
+ │    └── user/
+ │         ├── user.model.ts
+ │         ├── user.controller.ts
+ │         ├── user.route.ts
+ │         └── user.interface.ts
+```
+
+---
+
+# Real-World Example of MVC
+
+Think about a restaurant:
+
+| MVC Part   | Real Example     |
+| ---------- | ---------------- |
+| View       | Customer menu    |
+| Controller | Waiter           |
+| Model      | Kitchen/database |
+
+Flow:
+
+1. Customer orders
+2. Waiter takes request
+3. Kitchen prepares food
+4. Waiter returns food
+
+---
+
+# Advantages of MVC
+
+* Clean separation
+* Easy maintenance
+* Scalable
+* Easier testing
+* Team collaboration friendly
+
+---
+
+# Disadvantages of MVC
+
+* More files
+* Can feel complex for small projects
+
+---
+
+# What is Modular Pattern?
+
+The **Modular Pattern** organizes code into independent modules/features.
+
+Each feature keeps its own:
+
+* controller
+* service
+* route
+* validation
+* interface
+* model
+
+Instead of organizing by file type globally, we organize by feature.
+
+---
+
+# Modular Architecture Example
+
+```txt
+src/
+ ├── app/
+ │    ├── modules/
+ │    │     ├── user/
+ │    │     │    ├── user.controller.ts
+ │    │     │    ├── user.service.ts
+ │    │     │    ├── user.route.ts
+ │    │     │    ├── user.validation.ts
+ │    │     │    └── user.model.ts
+ │    │
+ │    │     ├── auth/
+ │    │     └── product/
+```
+
+---
+
+# How Modular Pattern Works
+
+Each module is self-contained.
+
+Example:
+
+```txt
+User Module
+ ├── Controller
+ ├── Service
+ ├── Route
+ ├── Validation
+ └── Model
+```
+
+This makes features independent and scalable.
+
+---
+
+# Service Layer in Modular Pattern
+
+Most modular architectures also use a **service layer**.
+
+### Flow
+
+```txt
+Route
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Model
+  ↓
+Database
+```
+
+---
+
+# Example
+
+## Service
+
+```ts
+// user.service.ts
+
+const getUsersFromDB = async () => {
+  return await User.find();
+};
+
+export const UserService = {
+  getUsersFromDB,
+};
+```
+
+---
+
+## Controller
+
+```ts
+// user.controller.ts
+
+const getUsers = async (req, res) => {
+  const users = await UserService.getUsersFromDB();
+
+  res.json({
+    success: true,
+    data: users,
+  });
+};
+```
+
+---
+
+# MVC vs Modular Pattern
+
+| Feature         | MVC                       | Modular             |
+| --------------- | ------------------------- | ------------------- |
+| Main Idea       | Separate responsibilities | Organize by feature |
+| Structure       | Model, View, Controller   | Feature-based       |
+| Scalability     | Medium                    | Very High           |
+| Best For        | Small-medium apps         | Large apps          |
+| Service Layer   | Optional                  | Common              |
+| Maintainability | Good                      | Excellent           |
+
+---
+
+# Important Note
+
+Modern backend applications usually combine both:
+
+```txt
+Modular + MVC
+```
+
+Example:
+
+```txt
+user/
+ ├── user.controller.ts
+ ├── user.service.ts
+ ├── user.model.ts
+ └── user.route.ts
+```
+
+This is exactly how many professional Node.js + Express + TypeScript projects are built.
+
+---
+
+# Interview Questions
+
+## Basic
+
+### What is a design pattern?
+
+A reusable solution to common software design problems.
+
+---
+
+### What is MVC?
+
+An architectural pattern separating application into Model, View, and Controller.
+
+---
+
+### What does Controller do?
+
+Handles request/response and communicates with services/models.
+
+---
+
+### What is Modular Pattern?
+
+A feature-based architecture where each feature is independent.
+
+---
+
+# Intermediate
+
+### Why is service layer used?
+
+To keep business logic separate from controller.
+
+---
+
+### Difference between MVC and Modular?
+
+MVC separates responsibility.
+Modular organizes by feature.
+
+---
+
+### Why modular architecture is popular?
+
+Because it improves scalability and maintainability.
+
+---
+
+# Common Mistakes
+
+❌ Writing database logic inside controller
+❌ Keeping all routes in one file
+❌ No separation of business logic
+❌ Huge controller functions
+
+---
+
+# Recommended Structure for Modern Express App
+
+```txt
+src/
+ ├── app/
+ │    ├── modules/
+ │    ├── routes/
+ │    ├── middlewares/
+ │    ├── errors/
+ │    └── config/
+```
+
+This structure is widely used in professional backend projects with Express.js and TypeScript.

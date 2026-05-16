@@ -1,0 +1,163 @@
+# One-to-One Relationship
+
+One row in one table is connected to only one row in another table.
+
+### Example
+
+```txt id="r7k24d"
+One User → One Profile
+```
+
+| users  | profiles  |
+| ------ | --------- |
+| 1 user | 1 profile |
+
+Usually created using:
+
+```sql id="4m4f61"
+user_id UNIQUE REFERENCES users(id)
+```
+
+---
+
+# One-to-Many Relationship
+
+One row in one table can be connected to many rows in another table.
+
+### Example
+
+```txt id="h1bbzn"
+One User → Many Posts
+```
+
+| users  | posts      |
+| ------ | ---------- |
+| 1 user | many posts |
+
+Usually created using:
+
+```sql id="pruql9"
+user_id REFERENCES users(id)
+```
+
+(no `UNIQUE`)
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+```sql id="7y9phu"
+user_id INT UNIQUE REFERENCES users(id) ON DELETE CASCADE
+```
+
+# Keyword Explanation
+
+## `user_id`
+
+Column name.
+
+Stores the user ID.
+
+---
+
+## `INT`
+
+Integer data type.
+
+Example:
+
+```txt id="x6zaf8"
+1, 2, 3
+```
+
+---
+
+## `UNIQUE`
+
+No duplicate values allowed.
+
+Used for one-to-one relationships.
+
+---
+
+## `REFERENCES`
+
+Creates a foreign key relationship.
+
+---
+
+## `users(id)`
+
+References the `id` column from the `users` table.
+
+Meaning:
+
+```txt id="hfx7zi"
+user_id must exist in users table
+```
+
+---
+
+## `ON DELETE`
+
+Defines what happens when parent data is deleted.
+
+---
+
+## `CASCADE`
+
+Automatically deletes related child rows.
+
+---
+
+# Full Meaning
+
+```txt id="ezg4lv"
+Create a unique integer foreign key linked with users table,
+and automatically delete related data if the user is deleted.
+```
+
+---
+
+# To-the-Point Interview Questions
+
+## What is `INT`?
+
+Integer data type.
+
+---
+
+## What does `UNIQUE` do?
+
+Prevents duplicate values.
+
+---
+
+## What is `REFERENCES` in SQL?
+
+Used to create foreign key relationships.
+
+---
+
+## What is a Foreign Key?
+
+A column that references another table’s primary key.
+
+---
+
+## What does `ON DELETE CASCADE` do?
+
+Deletes related child rows automatically when parent row is deleted.
+
+---
+
+## Why use `UNIQUE` with foreign key?
+
+To create one-to-one relationships.

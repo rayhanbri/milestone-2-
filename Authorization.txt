@@ -1,0 +1,114 @@
+# 1. Role-Based Authorization (RBAC)
+
+Access is controlled using user roles.
+
+### Example
+
+```txt id="44j8y4"
+Admin → can delete users
+User → cannot delete users
+```
+
+### Common Roles
+
+* Admin
+* User
+* Moderator
+
+---
+
+# 2. Permission-Based Authorization
+
+Access is controlled using specific permissions.
+
+### Example
+
+```txt id="a5l8eo"
+can_create_post
+can_delete_post
+can_update_user
+```
+
+A user gets permissions directly.
+
+---
+
+# 3. Attribute-Based Authorization (ABAC)
+
+Access depends on attributes.
+
+### Example
+
+```txt id="rqj2y2"
+User can edit only their own post
+```
+
+Checks:
+
+* User ID
+* Department
+* Time
+* Location
+
+---
+
+# 4. Policy-Based Authorization
+
+Access is controlled using rules/policies.
+
+### Example
+
+```txt id="tykw6d"
+Only verified agents can publish property
+```
+
+Policies define conditions.
+
+---
+
+# Simple Difference
+
+| Type             | Access Based On |
+| ---------------- | --------------- |
+| Role-Based       | Role            |
+| Permission-Based | Permissions     |
+| Attribute-Based  | Attributes/data |
+| Policy-Based     | Rules/policies  |
+
+---
+
+# To-the-Point Interview Questions
+
+## What is Role-Based Authorization?
+
+Access control using user roles.
+
+---
+
+## What is Permission-Based Authorization?
+
+Access control using specific permissions.
+
+---
+
+## What is ABAC?
+
+Authorization based on attributes like user ID, department, or ownership.
+
+---
+
+## What is Policy-Based Authorization?
+
+Authorization using defined business rules/policies.
+
+---
+
+## Difference between Role-Based and Permission-Based?
+
+Role-based uses roles, permission-based uses specific actions/permissions.
+
+---
+
+## Which authorization is more flexible?
+
+Attribute-Based and Policy-Based authorization are more flexible.

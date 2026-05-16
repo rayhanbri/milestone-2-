@@ -1,0 +1,42 @@
+1.SofwareDesignPattern.txt 
+2.DRY AND FATMODEL.txt
+3.How local host works ? 
+
+
+module flow --------------------------
+1.db index.ts
+2.app.ts 
+user module 
+1.user.route.ts 
+2.user.contoller.ts 
+3.user.service.js 
+4.user.inerface.ts
+all user things done 
+
+-------------------------------------------------------------
+user profile system --------
+
+* 1 to 1 and 1 to many relation 
+ONE TO ONE.txt folder 
+1.index.ts create profile table 
+2. app.ts 
+2.profile.route.ts
+3.profile.controller.ts
+4.profle.service.ts // console.log payload 
+5.
+
+-------------------------
+1.Authentication vs Authorization txt session base authentication jwt authentication
+
+2.Authorization.txt read 
+
+3. password encryption// bycrypt  
+
+4. query the change anar por server drop  kore dhibho 
+
+-----------------------
+JWT.text
+---------------
+1.auth.route.ts
+2.auth.contoller.ts
+3. auth.service.ts

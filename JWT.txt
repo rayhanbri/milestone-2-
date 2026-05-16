@@ -1,0 +1,403 @@
+# What is JWT?
+
+JWT stands for:
+
+```txt id="5q2i4k"
+JSON Web Token
+```
+
+It is a secure token used for:
+
+* Authentication
+* Authorization
+* Sharing user information securely
+
+Commonly used in APIs and MERN stack applications with JSON Web Token.
+
+---
+
+# Simple Flow
+
+```txt id="n0sgc3"
+User Login →
+Server creates JWT →
+Client stores token →
+Token sent with every request
+```
+
+---
+
+# Where JWT is Sent
+
+Usually in request headers:
+
+```txt id="j0gjna"
+Authorization: Bearer token
+```
+
+---
+
+# What JWT Contains
+
+JWT usually contains:
+
+* User ID
+* Email
+* Role
+* Expiration time
+
+---
+
+# JWT Structure
+
+JWT has 3 parts:
+
+```txt id="r7aqho"
+Header.Payload.Signature
+```
+
+Example:
+
+```txt id="51qpt8"
+xxxxx.yyyyy.zzzzz
+```
+
+---
+
+# Why JWT is Popular
+
+* Stateless
+* Fast
+* Good for APIs
+* Works well with frontend + backend separately
+
+---
+
+# What Does Stateless Mean?
+
+```txt id="zmb9yj"
+Server does not store session data
+```
+
+Everything is inside the token.
+
+---
+
+# Simple Real Example
+
+```txt id="mofv2w"
+Login to app →
+Receive token →
+Use token to access private routes
+```
+
+---
+
+# To-the-Point Interview Questions
+
+## What is JWT?
+
+A token-based authentication system.
+
+---
+
+## What does JWT stand for?
+
+JSON Web Token.
+
+---
+
+## What are the 3 parts of JWT?
+
+Header, Payload, Signature.
+
+---
+
+## Where is JWT usually sent?
+
+In the Authorization header.
+
+---
+
+## What does JWT store?
+
+User-related information like ID and role.
+
+---
+
+## What is the main advantage of JWT?
+
+Stateless authentication.
+
+---
+
+## What does stateless mean?
+
+Server does not store user session data.
+
+---
+
+## Is JWT encrypted?
+
+No, JWT is encoded and signed, not encrypted by default.
+
+---
+
+## Why is Signature important in JWT?
+
+It verifies that the token was not modified.
+
+-------------------------------------------------
+# JWT Structure
+
+```txt id="b5g7rx"
+Header.Payload.Signature
+```
+
+Example:
+
+```txt id="wg3c9m"
+xxxxx.yyyyy.zzzzz
+```
+
+---
+
+# 1. JWT Header
+
+Contains token information.
+
+Usually stores:
+
+* Token type
+* Algorithm
+
+### Example
+
+```json id="hzr9ut"
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+---
+
+# 2. JWT Payload
+
+Contains actual user data.
+
+Usually stores:
+
+* User ID
+* Email
+* Role
+* Expiration time
+
+### Example
+
+```json id="rltgrt"
+{
+  "id": 1,
+  "role": "admin"
+}
+```
+
+---
+
+# 3. JWT Signature
+
+Used to verify token authenticity.
+
+Created using:
+
+```txt id="bzf76x"
+Header + Payload + Secret Key
+```
+
+It prevents token modification.
+
+---
+
+# Simple Meaning
+
+| Part      | Purpose               |
+| --------- | --------------------- |
+| Header    | Token info            |
+| Payload   | User data             |
+| Signature | Security verification |
+
+---
+
+# To-the-Point Interview Questions
+
+## What are the 3 parts of JWT?
+
+Header, Payload, Signature.
+
+---
+
+## What does JWT Header contain?
+
+Token type and algorithm.
+
+---
+
+## What does JWT Payload contain?
+
+User-related data.
+
+---
+
+## What is JWT Signature used for?
+
+Verifying token authenticity.
+
+---
+
+## Can anyone read JWT payload?
+
+Yes, because JWT is encoded, not encrypted.
+-----------------------------------------------------
+# JWT Authentication Process (Simple)
+
+## Step 1: User Login
+
+User sends credentials:
+
+```txt id="a1k9qz"
+email + password
+```
+
+---
+
+## Step 2: Server Verify
+
+Server checks:
+
+* Email exists
+* Password matches
+
+If valid → proceed
+
+---
+
+## Step 3: Create JWT
+
+Server generates token:
+
+```txt id="m2v8xp"
+Header.Payload.Signature
+```
+
+Includes:
+
+* userId
+* role
+* expiry time
+
+---
+
+## Step 4: Send Token to Client
+
+Server sends JWT:
+
+```json id="p9x3ld"
+{
+  "token": "jwt_token_here"
+}
+```
+
+---
+
+## Step 5: Client Stores Token
+
+Stored in:
+
+* localStorage OR
+* cookies
+
+---
+
+## Step 6: Send Token in Requests
+
+Client sends token in headers:
+
+```txt id="k7n2wa"
+Authorization: Bearer token
+```
+
+---
+
+## Step 7: Server Verifies Token
+
+On every request:
+
+* Checks signature
+* Checks expiry
+* Extracts user info
+
+If valid → allow access
+
+If invalid → reject
+
+---
+
+# Simple Flow
+
+```txt id="v5h2lm"
+Login → Verify → Create JWT → Store Token → Send Token → Verify Token → Access Protected Route
+```
+
+---
+
+# Real Example
+
+```txt id="c8p4rt"
+Login to dashboard →
+Get JWT →
+Access profile page using token
+```
+
+---
+
+# To-the-Point Interview Questions
+
+## What is JWT authentication?
+
+Token-based authentication using JSON Web Token.
+
+---
+
+## What happens when user logs in?
+
+Server verifies credentials and generates JWT.
+
+---
+
+## Where is JWT stored?
+
+Client side (localStorage or cookies).
+
+---
+
+## How is JWT sent to server?
+
+Through Authorization header as Bearer token.
+
+---
+
+## What does server do with JWT?
+
+Verifies signature and checks validity.
+
+---
+
+## What happens if JWT is invalid?
+
+Access is denied.
+
+---
+
+## Why JWT is stateless?
+
+Because server does not store session data.
