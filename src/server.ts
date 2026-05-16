@@ -16,6 +16,7 @@ app.use(express.text());
 // urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+// Pool Theory Folder
 const pool = new Pool({
   connectionString: config.connection_string,
 });
@@ -110,6 +111,14 @@ app.get("/api/users/:id", async (req: Request, res: Response) => {
       [id],
     );
 
+    // * `SELECT` → Used to retrieve data
+    // * `*` → Selects all columns
+    // * `FROM` → Specifies the table name
+    // * `users` → Table name
+    // * `WHERE` → Adds condition/filter
+    // * `id` → Column name
+    // * `$1` → Dynamic parameter placeholder value
+
     if (result.rows.length === 0) {
       res.status(404).json({
         success: false,
@@ -162,6 +171,12 @@ app.put("/api/users/:id", async (req: Request, res: Response) => {
         message: "User Not found!",
       });
     }
+
+    //     UPDATE → Used to modify existing data
+    // users → Table name
+    // SET → Specifies which columns will be updated
+    // name=password=age=is_active → Column names
+    // COALESCE() → Returns the first non-null value
 
     // console.log(result);
     res.status(200).json({

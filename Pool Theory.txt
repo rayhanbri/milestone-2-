@@ -1,0 +1,271 @@
+```js
+const pool = new Pool({
+  connectionString: config.connection_string,
+});
+```
+
+This code creates a **database connection pool** using PostgreSQL in Node.js.
+
+Usually used with:
+
+* PostgreSQL
+* Node.js
+* Express.js
+* `pg` package
+
+---
+
+# First Understand `pg`
+
+To connect PostgreSQL with Node.js, we use the `pg` package.
+
+Installation:
+
+```bash
+npm install pg
+```
+
+Import:
+
+```js
+const { Pool } = require("pg");
+```
+
+`Pool` comes from the `pg` package.
+
+---
+
+# What is Pool?
+
+A pool is a collection of reusable database connections.
+
+Instead of creating a new database connection every time:
+
+```txt
+Request → New Connection → Query → Close Connection
+```
+
+Pool keeps connections ready and reuses them.
+
+This improves:
+
+* Performance
+* Speed
+* Scalability
+
+---
+
+# Breaking Down the Code
+
+## Step 1
+
+```js
+new Pool()
+```
+
+Creates a PostgreSQL connection pool.
+
+---
+
+## Step 2
+
+```js
+connectionString: config.connection_string
+```
+
+Provides database connection information.
+
+Usually looks like:
+
+```txt
+postgresql://username:password@localhost:5432/database_name
+```
+
+Example:
+
+```txt
+postgresql://postgres:1234@localhost:5432/mydb
+```
+
+---
+
+# Full Example
+
+## config.js
+
+```js
+const config = {
+  connection_string:
+    "postgresql://postgres:1234@localhost:5432/mydb",
+};
+
+module.exports = config;
+```
+
+---
+
+## db.js
+
+```js
+const { Pool } = require("pg");
+const config = require("./config");
+
+const pool = new Pool({
+  connectionString: config.connection_string,
+});
+
+module.exports = pool;
+```
+
+---
+
+# How to Use the Pool
+
+Example query:
+
+```js
+const result = await pool.query("SELECT * FROM users");
+
+console.log(result.rows);
+```
+
+---
+
+# What Happens Internally?
+
+```txt
+App starts
+    ↓
+Pool creates reusable DB connections
+    ↓
+Request comes
+    ↓
+Pool gives one connection
+    ↓
+Query runs
+    ↓
+Connection returns to pool
+```
+
+---
+
+# Why We Use Pool Instead of Client
+
+`pg` package has two main options:
+
+| Option | Purpose                       |
+| ------ | ----------------------------- |
+| Client | Single DB connection          |
+| Pool   | Multiple reusable connections |
+
+---
+
+## Client Example
+
+```js
+const client = new Client();
+```
+
+Problem:
+
+* Must manually connect/disconnect
+* Slower for large apps
+
+---
+
+## Pool Example
+
+```js
+const pool = new Pool();
+```
+
+Benefits:
+
+* Better performance
+* Automatic connection management
+* Best for real-world applications
+
+---
+
+# Common Interview Questions
+
+## Q1: What is Pool in PostgreSQL?
+
+Pool is a set of reusable database connections.
+
+---
+
+## Q2: Why use connection pooling?
+
+To improve performance and avoid creating new DB connections repeatedly.
+
+---
+
+## Q3: What does `pool.query()` do?
+
+Executes SQL queries using an available connection from the pool.
+
+---
+
+# Common Mistakes
+
+## Forgetting to export pool
+
+Wrong:
+
+```js
+const pool = new Pool();
+```
+
+But no:
+
+```js
+module.exports = pool;
+```
+
+---
+
+## Wrong connection string
+
+Wrong:
+
+```txt
+postgres://wrong
+```
+
+Database connection fails.
+
+---
+
+# Simple Visualization
+
+```txt
+Node.js App
+     ↓
+Connection Pool
+ ┌─────────────┐
+ │ Connection1 │
+ │ Connection2 │
+ │ Connection3 │
+ └─────────────┘
+     ↓
+PostgreSQL Database
+```
+
+---
+
+# Short Summary
+
+```js
+const pool = new Pool({
+  connectionString: config.connection_string,
+});
+```
+
+This code:
+
+* Creates PostgreSQL connection pool
+* Connects Node.js with database
+* Reuses DB connections
+* Improves backend performance
+* Helps handle multiple requests efficiently

@@ -1,8 +1,10 @@
-1.what is express.js
+1.what is express.js folder 
+2.what is sql 
+3.sql data types
+4.what is sql and PostgreSQL
 modle flow ------------------
 1.server.ts (hit server thorugh postman)
-
-How to start neon db 
+How to start neon db ----------
 1.go to neon 
 2.create new project 
 2.go to connect 

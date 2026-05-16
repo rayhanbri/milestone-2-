@@ -16,29 +16,6 @@ When the server starts, this function runs and creates the database table automa
 ## Code Breakdown
 
 ```js
-const initDB = async () => {
-```
-
-### What is happening?
-
-* `async` means this function works asynchronously.
-* Database operations take time, so we use `async/await`.
-
----
-
-```js
-try {
-```
-
-### Purpose
-
-Used for error handling.
-
-If any database error happens, execution jumps to `catch`.
-
----
-
-```js
 await pool.query(`
 ```
 
@@ -47,20 +24,6 @@ await pool.query(`
 Runs an SQL query using the PostgreSQL connection pool.
 
 `await` waits until the query finishes.
-
----
-
-# SQL Table Explanation
-
-```sql
-CREATE TABLE IF NOT EXISTS users(
-```
-
-### Meaning
-
-Create a table named `users`.
-
-If the table already exists, do nothing.
 
 ---
 
@@ -152,50 +115,6 @@ Always hash passwords using:
 * `argon2`
 
 ---
-
-```sql
-is_active BOOLEAN DEFAULT true,
-```
-
-## Explanation
-
-Stores active/inactive status.
-
-### BOOLEAN values
-
-* `true`
-* `false`
-
-### DEFAULT true
-
-If no value is given:
-
-```sql
-is_active = true
-```
-
-automatically.
-
----
-
-```sql
-age INT,
-```
-
-### Meaning
-
-Stores integer age.
-
-Example:
-
-```txt
-20
-25
-30
-```
-
----
-
 ```sql
 created_at TIMESTAMP DEFAULT NOW(),
 ```
@@ -237,40 +156,7 @@ console.log("Database connected successfully!");
 ```
 
 Prints success message.
-
 ---
-
-```js
-} catch (error) {
-  console.log(error);
-}
-```
-
-If any error occurs, it prints the error.
-
----
-
-# Real World Example
-
-Suppose a user registers:
-
-```json
-{
-  "name": "Rayhan",
-  "email": "rayhan@gmail.com",
-  "password": "123456",
-  "age": 22
-}
-```
-
-Database row becomes:
-
-| id | name   | email                                       | is_active | age |
-| -- | ------ | ------------------------------------------- | --------- | --- |
-| 1  | Rayhan | [rayhan@gmail.com](mailto:rayhan@gmail.com) | true      | 22  |
-
----
-
 # Important Improvements (Interview + Production)
 
 ## 1. Increase VARCHAR Length
@@ -283,11 +169,6 @@ password VARCHAR(255)
 Because hashed passwords are long.
 
 ---
-
-## 2. Add `NOT NULL` to name
-
-```sql
-name VARCHAR(50) NOT NULL
 ```
 
 ---
@@ -336,7 +217,6 @@ const initDB = async () => {
 ### 1. Why use `async/await`?
 
 Because database operations are asynchronous.
-
 ---
 
 ### 2. What is `SERIAL` in PostgreSQL?

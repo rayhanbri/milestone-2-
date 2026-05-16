@@ -1,0 +1,461 @@
+# SQL Data Types
+
+SQL data types define **what kind of data** can be stored inside a column.
+
+Example:
+
+```sql
+CREATE TABLE users (
+  id INT,
+  name VARCHAR(50),
+  is_active BOOLEAN
+);
+```
+
+Here:
+
+* `INT` → stores numbers
+* `VARCHAR(50)` → stores text
+* `BOOLEAN` → stores true/false
+
+---
+
+# Why Data Types Are Important
+
+Data types help:
+
+* Store correct data
+* Save memory
+* Improve performance
+* Prevent invalid data
+
+Example:
+
+Age should be number:
+
+```sql
+age INT
+```
+
+Not:
+
+```sql
+age VARCHAR(50)
+```
+
+---
+
+# Main Categories of SQL Data Types
+
+| Category    | Purpose       |
+| ----------- | ------------- |
+| Numeric     | Numbers       |
+| String/Text | Text values   |
+| Boolean     | True/False    |
+| Date & Time | Date and time |
+| JSON        | JSON data     |
+
+---
+
+# 1. Numeric Data Types
+
+Used for numbers.
+
+---
+
+## INT
+
+Stores whole numbers.
+
+```sql
+age INT
+```
+
+Example:
+
+```txt
+10
+25
+100
+```
+
+---
+
+## SMALLINT
+
+Stores smaller numbers.
+
+```sql
+quantity SMALLINT
+```
+
+---
+
+## BIGINT
+
+Stores very large numbers.
+
+```sql
+phone BIGINT
+```
+
+---
+
+## DECIMAL / NUMERIC
+
+Stores precise decimal numbers.
+
+```sql
+price DECIMAL(10,2)
+```
+
+Explanation:
+
+```txt
+10 = total digits
+2 = digits after decimal
+```
+
+Example:
+
+```txt
+99999999.99
+```
+
+Very useful for:
+
+* Money
+* Banking
+* E-commerce
+
+---
+
+## FLOAT / REAL
+
+Stores floating-point numbers.
+
+```sql
+rating FLOAT
+```
+
+Example:
+
+```txt
+4.5
+3.1416
+```
+
+Less precise than `DECIMAL`.
+
+---
+
+# 2. String/Text Data Types
+
+Used for text.
+
+---
+
+## CHAR(n)
+
+Fixed-length string.
+
+```sql
+gender CHAR(1)
+```
+
+Example:
+
+```txt
+M
+F
+```
+
+Always keeps fixed size.
+
+---
+
+## VARCHAR(n)
+
+Variable-length string.
+
+```sql
+name VARCHAR(50)
+```
+
+Most commonly used text type.
+
+Example:
+
+```txt
+Rayhan
+Rahim
+```
+
+---
+
+## TEXT
+
+Stores large text.
+
+```sql
+description TEXT
+```
+
+Useful for:
+
+* Blog content
+* Comments
+* Long descriptions
+
+---
+
+# 3. Boolean Data Type
+
+Stores true or false.
+
+```sql
+is_active BOOLEAN
+```
+
+Values:
+
+```txt
+TRUE
+FALSE
+```
+
+---
+
+# 4. Date & Time Data Types
+
+Used for date and time.
+
+---
+
+## DATE
+
+Stores only date.
+
+```sql
+birth_date DATE
+```
+
+Example:
+
+```txt
+2026-05-16
+```
+
+---
+
+## TIME
+
+Stores only time.
+
+```sql
+start_time TIME
+```
+
+Example:
+
+```txt
+10:30:00
+```
+
+---
+
+## TIMESTAMP
+
+Stores date and time together.
+
+```sql
+created_at TIMESTAMP
+```
+
+Example:
+
+```txt
+2026-05-16 10:30:00
+```
+
+Very common in backend development.
+
+---
+
+# 5. JSON Data Type
+
+Modern SQL databases support JSON.
+
+Example in PostgreSQL:
+
+```sql
+settings JSON
+```
+
+Example value:
+
+```json
+{
+  "theme": "dark",
+  "language": "en"
+}
+```
+
+---
+
+# Commonly Used SQL Data Types in Real Projects
+
+| Field       | Data Type    |
+| ----------- | ------------ |
+| id          | SERIAL / INT |
+| name        | VARCHAR      |
+| email       | VARCHAR      |
+| password    | VARCHAR      |
+| age         | INT          |
+| price       | DECIMAL      |
+| description | TEXT         |
+| is_active   | BOOLEAN      |
+| created_at  | TIMESTAMP    |
+
+---
+
+# Real-World Example
+
+```sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50),
+  email VARCHAR(100) UNIQUE,
+  age INT,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+---
+
+# Important Concepts
+
+## SERIAL
+
+Auto-increment integer.
+
+```sql
+id SERIAL PRIMARY KEY
+```
+
+Automatically generates:
+
+```txt
+1
+2
+3
+4
+```
+
+---
+
+## DEFAULT
+
+Sets default value.
+
+```sql
+is_active BOOLEAN DEFAULT TRUE
+```
+
+---
+
+## UNIQUE
+
+Prevents duplicate values.
+
+```sql
+email VARCHAR(100) UNIQUE
+```
+
+---
+
+# Common Interview Questions
+
+## Q1: What is a data type in SQL?
+
+A data type defines the kind of value a column can store.
+
+---
+
+## Q2: Difference between CHAR and VARCHAR?
+
+| CHAR                   | VARCHAR         |
+| ---------------------- | --------------- |
+| Fixed length           | Variable length |
+| Wastes space sometimes | Saves space     |
+
+---
+
+## Q3: Difference between FLOAT and DECIMAL?
+
+| FLOAT             | DECIMAL      |
+| ----------------- | ------------ |
+| Approximate value | Exact value  |
+| Less precise      | More precise |
+
+Use `DECIMAL` for money.
+
+---
+
+## Q4: Why use TIMESTAMP?
+
+To store creation/update time.
+
+---
+
+# Common Mistakes
+
+## Using VARCHAR for numbers
+
+Wrong:
+
+```sql
+age VARCHAR(10)
+```
+
+Correct:
+
+```sql
+age INT
+```
+
+---
+
+## Using FLOAT for money
+
+Wrong:
+
+```sql
+price FLOAT
+```
+
+Correct:
+
+```sql
+price DECIMAL(10,2)
+```
+
+---
+
+# Short Summary
+
+SQL data types define what type of data can be stored in a column.
+
+Main types:
+
+* Numeric → `INT`, `DECIMAL`
+* Text → `VARCHAR`, `TEXT`
+* Boolean → `BOOLEAN`
+* Date & Time → `DATE`, `TIMESTAMP`
+
+Choosing correct data types helps make databases:
+
+* Faster
+* Safer
+* More efficient

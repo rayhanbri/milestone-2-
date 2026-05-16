@@ -1,0 +1,336 @@
+# What is an SQL Database?
+
+An SQL database is a type of database that stores data in **tables** using rows and columns.
+
+SQL stands for:
+
+```txt
+Structured Query Language
+```
+
+It is used to:
+
+* Store data
+* Read data
+* Update data
+* Delete data
+* Manage relationships between data
+
+Popular SQL databases:
+
+* MySQL
+* PostgreSQL
+* SQLite
+* Microsoft SQL Server
+
+---
+
+# Why Do We Use SQL Database?
+
+We use SQL databases to store and manage application data in an organized and secure way.
+
+Example:
+
+A website may need to store:
+
+| Data Type | Example               |
+| --------- | --------------------- |
+| Users     | name, email, password |
+| Products  | title, price          |
+| Orders    | product_id, user_id   |
+| Blogs     | title, description    |
+
+Without a database, data would be lost after restarting the server.
+
+---
+
+# Real-World Example
+
+Suppose you build an e-commerce website.
+
+You need to store:
+
+## Users Table
+
+| id | name   | email                                       |
+| -- | ------ | ------------------------------------------- |
+| 1  | Rayhan | [rayhan@gmail.com](mailto:rayhan@gmail.com) |
+
+---
+
+## Products Table
+
+| id | title  | price |
+| -- | ------ | ----- |
+| 1  | Laptop | 70000 |
+
+---
+
+## Orders Table
+
+| id | user_id | product_id |
+| -- | ------- | ---------- |
+| 1  | 1       | 1          |
+
+This structure is called a **relational database**.
+
+Tables are connected using relationships.
+
+---
+
+# Why SQL Databases Are Important
+
+## 1. Organized Data Storage
+
+Data stays structured in tables.
+
+Easy to manage large amounts of data.
+
+---
+
+## 2. Fast Data Searching
+
+SQL provides powerful queries.
+
+Example:
+
+```sql
+SELECT * FROM users;
+```
+
+Gets all users.
+
+---
+
+## 3. Relationships Between Tables
+
+You can connect tables using:
+
+* Primary Key
+* Foreign Key
+
+Example:
+
+```txt
+users.id → orders.user_id
+```
+
+---
+
+## 4. Data Security
+
+SQL databases support:
+
+* Authentication
+* Authorization
+* Data validation
+
+---
+
+## 5. Data Consistency
+
+SQL databases follow ACID properties:
+
+* Atomicity
+* Consistency
+* Isolation
+* Durability
+
+This helps prevent data corruption.
+
+Very important for:
+
+* Banking apps
+* Payment systems
+* E-commerce
+
+---
+
+# Common SQL Operations (CRUD)
+
+| Operation | SQL Command |
+| --------- | ----------- |
+| Create    | INSERT      |
+| Read      | SELECT      |
+| Update    | UPDATE      |
+| Delete    | DELETE      |
+
+---
+
+# Example Queries
+
+## Create Table
+
+```sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50),
+  email VARCHAR(100)
+);
+```
+
+---
+
+## Insert Data
+
+```sql
+INSERT INTO users(name, email)
+VALUES('Rayhan', 'rayhan@gmail.com');
+```
+
+---
+
+## Read Data
+
+```sql
+SELECT * FROM users;
+```
+
+---
+
+## Update Data
+
+```sql
+UPDATE users
+SET name = 'Rahim'
+WHERE id = 1;
+```
+
+---
+
+## Delete Data
+
+```sql
+DELETE FROM users
+WHERE id = 1;
+```
+
+---
+
+# SQL Database vs NoSQL Database
+
+| SQL                      | NoSQL                               |
+| ------------------------ | ----------------------------------- |
+| Table-based              | Document-based                      |
+| Structured schema        | Flexible schema                     |
+| Uses SQL language        | Different query systems             |
+| Best for relational data | Best for flexible/unstructured data |
+
+---
+
+# SQL in Backend Development
+
+In backend projects, SQL databases are used with:
+
+* Express.js
+* Prisma
+* Sequelize
+* TypeORM
+
+Example flow:
+
+```txt
+Frontend
+   ↓
+Express API
+   ↓
+SQL Database
+```
+
+---
+
+# Common Interview Questions
+
+## Q1: What is SQL?
+
+SQL is a language used to communicate with relational databases.
+
+---
+
+## Q2: What is a relational database?
+
+A database that stores data in related tables.
+
+---
+
+## Q3: What is a primary key?
+
+A unique identifier for each row.
+
+Example:
+
+```sql
+id SERIAL PRIMARY KEY
+```
+
+---
+
+## Q4: What is a foreign key?
+
+A key used to connect one table with another table.
+
+---
+
+## Q5: Difference between SQL and NoSQL?
+
+SQL uses tables and fixed schema, while NoSQL uses flexible document-based storage.
+
+---
+
+# Common Mistakes
+
+## Forgetting WHERE clause
+
+Wrong:
+
+```sql
+DELETE FROM users;
+```
+
+Deletes all users.
+
+Correct:
+
+```sql
+DELETE FROM users
+WHERE id = 1;
+```
+
+---
+
+## Using duplicate primary keys
+
+Primary keys must be unique.
+
+---
+
+# Simple Visualization
+
+```txt
+Application
+    ↓
+Backend Server
+    ↓
+SQL Database
+    ↓
+Tables
+```
+
+---
+
+# Short Summary
+
+SQL database is a relational database system used to:
+
+* Store data
+* Manage data
+* Connect related data
+* Perform CRUD operations
+
+We use it because it is:
+
+* Structured
+* Secure
+* Fast
+* Reliable
+* Scalable
