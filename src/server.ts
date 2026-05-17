@@ -30,6 +30,7 @@ const initDB = async () => {
         CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
         name VARCHAR(20),
+        // email is reserved keyword  use  "email" if you want  to update this field. learn more aobut thos 
         email VARCHAR(20) UNIQUE NOT NULL,
         password VARCHAR(20) NOT NULL,
         is_active BOOLEAN DEFAULT true,
