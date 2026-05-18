@@ -125,21 +125,6 @@ and automatically delete related data if the user is deleted.
 ```
 
 ---
-
-# To-the-Point Interview Questions
-
-## What is `INT`?
-
-Integer data type.
-
----
-
-## What does `UNIQUE` do?
-
-Prevents duplicate values.
-
----
-
 ## What is `REFERENCES` in SQL?
 
 Used to create foreign key relationships.
@@ -149,6 +134,8 @@ Used to create foreign key relationships.
 ## What is a Foreign Key?
 
 A column that references another table’s primary key.
+
+A primary key is a unique identifier for a specific record (row) in a database table.
 
 ---
 

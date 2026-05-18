@@ -47,14 +47,6 @@ It checks:
 | Login check    | Permission check |
 
 ---
-
-# Real Example
-
-```txt id="3bgtv9"
-Login to Facebook → Authentication
-Delete a post as admin → Authorization
-```
-
 Commonly implemented in backend apps using JSON Web Token or session-based authentication.
 
 -----------------------------------

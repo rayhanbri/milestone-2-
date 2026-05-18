@@ -5,6 +5,15 @@ export const pool = new Pool({
   connectionString: config.connection_string,
 });
 
+//   Keyword	Simple Meaning
+// user_id	Column name
+// INT	Stores integer numbers
+// UNIQUE	Duplicate values are not allowed
+// REFERENCES	Creates relation with another table
+// users	Parent table name
+// (id)	References the id column of users table
+// ON DELETE CASCADE	If parent row is deleted, related child rows are automatically deleted
+
 export const initDB = async () => {
   try {
     await pool.query(`
@@ -25,7 +34,6 @@ export const initDB = async () => {
       CREATE TABLE IF NOT EXISTS profiles(
       id SERIAL PRIMARY KEY,
       user_id INT UNIQUE REFERENCES users(id) ON DELETE CASCADE,
-
       bio TEXT,
       address TEXT,
       phone VARCHAR(15),

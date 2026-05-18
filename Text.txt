@@ -1,4 +1,3 @@
-1.SofwareDesignPattern.txt 
 2.DRY AND FATMODEL.txt
 3.How local host works ? 
 
@@ -40,3 +39,8 @@ JWT.text
 1.auth.route.ts
 2.auth.contoller.ts
 3. auth.service.ts
+
+
+-----------
+task , crud for profile .
+register things
