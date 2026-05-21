@@ -6,7 +6,7 @@ import type { ROLES } from "../types";
 
 const auth = (...roles: ROLES[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    console.log(roles);
+    // console.log(roles);
     try {
       // console.log("This is protected Route");
       // console.log(req.headers.authorization);
@@ -69,6 +69,8 @@ const auth = (...roles: ROLES[]) => {
         });
       }
 
+      // express typescript name space index.d.ts  file
+      // then go to  req.controller and console it
       req.user = decoded; // req : { user : {} }
 
       next();

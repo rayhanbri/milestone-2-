@@ -1,0 +1,76 @@
+1.what is middleware in express
+2.built in middleware and custom middleware 
+middleware in express.js 
+-----------------------------
+
+1.logger middleware
+2.auth.ts //what hireorder function 
+
+how to  set authorizaition-----
+1.authorizaition 
+2.headers  // Authorization --login korar por j  access token pabo  oitai . 
+// 1. Check if the token exists
+// 2. Verify the token
+// 3. Find the user into database
+// 4. If the user active or not?
+
+
+Role base acces  controll --------------------- 
+1.add in database user  . (schema  update database  refresh)
+2.user.service.ts take role role  also // update interface add //optional /enum here
+3.coalesing in user.service.ts 
+4. user.route.ts give auth(admin,)//  //src/types/index.ts
+5.accept it .  and console it 
+6.jwt payoload er modde role add korbo//auth.service.ts 
+7.role na user role match kore ki na .auth.ts
+
+
+understanding refresh token  ------------------
+1.what is RBAC System 
+2.why we use cookies over local storage 
+3. what is  refresh token 
+---
+1.atuh.servcie.ts generate refresh token . 
+2.config bosabho 
+3.env theo dhobho 
+4.return it . 
+5.auth.controller.ts refreshtoken, and res.cookie
+6.now login and get  the accestoken on cookies beside  body
+
+
+----------
+generate access token with  refresh token
+----------------------------------------
+1.auth.router.ts  create resfresh token 
+2.auth.controll.ts create a refreshtoken function //req.cookies
+3.log in and test it under the send button 
+4.add a middleware in app.ts  //install cookie parser
+5.auth.service.ts generate refreshtoken function 
+7.verify with  refresh secret // refresh token er time barai dhibho 
+
+----------------------------------------
+Cors 
+--------------------------------------------------
+
+1.install Cors
+2.use it app.ts
+3.app.use(
+  cors({
+    origin: "http://localhost:3000",
+  }),
+);
+4.change kore dhithe hobe ei ta . 
+5.localhost change kore acces kore dhekho
+
+------------------------------------------
+Global  Error handler 
+-------------------------------------------
+1.middleware global error handler
+
+
+Send Response Utility function 
+----------------------------------------------
+1.create a send response Utility function and use it  
+
+make refresh token reusable task 
+

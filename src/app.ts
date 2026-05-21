@@ -15,7 +15,31 @@ const app: Application = express();
 app.use(CookieParser());
 app.use(express.json());
 app.use(express.text());
+// ### What it does (One line)
+// It converts plain text request body into a string and stores it in `req.body`.
+// ---
+// ### Example
+// Client sends:
+// ```txt
+// Hello Express
+// ```
+// Route:
+
+// ```js
+// app.use(express.text());
+// app.post("/", (req, res) => {
+//   console.log(req.body);
+//   res.send("Received");
+// });
+// ```
+// Output:
+// ```js
+// Hello Express
+// ```
 app.use(express.urlencoded({ extended: true }));
+// It parses form data (application/x-www-form-urlencoded) and stores it in req.body.
+extended: true;
+// Allows parsing nested objects and arrays.
 app.use(logger);
 
 app.use(

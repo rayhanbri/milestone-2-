@@ -1,0 +1,103 @@
+## 1. What is Middleware in Express?
+
+Middleware is a function that runs between **request** and **response** in an Express app.
+
+It can:
+
+* read request data
+* modify request/response
+* check authentication
+* log information
+* handle errors
+* decide whether to continue or stop the request
+
+Middleware uses 3 parameters:
+
+```js
+(req, res, next)
+```
+
+* `req` → request data
+* `res` → response data
+* `next()` → move to next middleware
+
+### Example
+
+```js
+app.use((req, res, next) => {
+  console.log("Middleware running");
+  next();
+});
+```
+
+---
+
+## Interview Question
+
+### Q: What is middleware in Express?
+
+**Answer:**
+Middleware is a function that executes during the request-response cycle. It can process requests, modify data, run logic, and pass control using `next()`.
+
+---
+
+# 2. Built-in Middleware and Custom Middleware
+
+## Built-in Middleware
+
+Express already provides some middleware functions.
+
+### Example
+
+```js
+app.use(express.json());
+```
+
+### What it does
+
+Converts JSON request body into JavaScript object.
+
+```js
+req.body
+```
+
+### Other Built-in Middleware
+
+| Middleware             | Purpose            |
+| ---------------------- | ------------------ |
+| `express.json()`       | Parse JSON data    |
+| `express.urlencoded()` | Parse form data    |
+| `express.static()`     | Serve static files |
+
+---
+
+## Custom Middleware
+
+Middleware created by developers for specific logic.
+
+### Example
+
+```js
+const logger = (req, res, next) => {
+  console.log(req.method, req.url);
+  next();
+};
+
+app.use(logger);
+```
+
+### What it does
+
+Logs request method and URL.
+
+---
+
+## Interview Question
+
+### Q: Difference between built-in and custom middleware?
+
+| Built-in Middleware       | Custom Middleware        |
+| ------------------------- | ------------------------ |
+| Provided by Express       | Created by developer     |
+| Common tasks              | Project-specific tasks   |
+| Example: `express.json()` | Example: auth middleware |
